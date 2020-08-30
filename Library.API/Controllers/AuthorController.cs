@@ -36,6 +36,31 @@ namespace Library.API.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        public IActionResult CreateAuthor(AuthorForCreationDto author)
+        {
+            var authorDto=new AuthorDto
+            {
+                Name = author.Name,
+                Age = author.Age,
+                Email = author.Email
+            };
+            AuthorRepository.AddAuthor(authorDto);
+            return CreatedAtRoute(nameof(GetAuthor), new {authorId = authorDto.Id}, authorDto);
+        }
+
+        [HttpDelete("{authorId}")]
+        public IActionResult DeleteAuthor(Guid authorId)
+        {
+            var author = AuthorRepository.GetAuthor(authorId);
+            if (author == null)
+            {
+                return NotFound();
+            }
+            AuthorRepository.DeleteAuthor(author);
+            return NoContent();
+        }
+
        
     }
 }

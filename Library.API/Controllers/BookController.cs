@@ -34,5 +34,79 @@ namespace Library.API.Controllers
 
             return BookRepository.GetBooksForAuthor(authorId).ToList();
         }
+
+        [HttpGet("{bookId}",Name = nameof(GetBook))]
+        public ActionResult<BookDto> GetBook(Guid authorId, Guid bookId)
+        {
+            if (!AuthorRepository.IsAuthorExists(authorId))
+            {
+                return NotFound();
+
+            }
+
+            var targetBook = BookRepository.GetBookForAuthor(authorId, bookId);
+            if (targetBook == null)
+            {
+                return NotFound();
+
+            }
+
+            return targetBook;
+        }
+
+        [HttpPost]
+        public IActionResult AddBook(Guid authorId, BookForCreationDto book)
+        {
+            if (!AuthorRepository.IsAuthorExists(authorId))
+            {
+                return NotFound();
+            }
+            var newbook=new BookDto
+            {
+                Id=Guid.NewGuid(),
+                Title = book.Title,
+                Description = book.Description,
+                Pages = book.Pages,
+                AuthorId = authorId
+
+            };
+            BookRepository.AddBook(newbook);
+            return CreatedAtRoute(nameof(GetBook),new {authorId,bookId=newbook.Id},newbook);
+        }
+
+        [HttpDelete("{bookId}")]
+        public IActionResult DeleteBook(Guid authorId, Guid bookId)
+        {
+            if (!AuthorRepository.IsAuthorExists(authorId))
+            {
+                return NotFound();
+
+            }
+
+            var book = BookRepository.GetBookForAuthor(authorId, bookId);
+            if (book == null)
+            {
+                return NotFound();
+
+            }
+            BookRepository.DeleteBook(book);
+            return NoContent();
+        }
+
+        [HttpPut("{bookId}")]
+        public IActionResult UpdateBook(Guid authorId, Guid bookId, BookForUpdateDto book)
+        {
+            if (!AuthorRepository.IsAuthorExists(authorId))
+            {
+                return NotFound();
+            }
+
+            var bookToUpdate = BookRepository.GetBookForAuthor(authorId, bookId);
+            if(bookToUpdate==null){
+                return NotFound();}
+            BookRepository.UpdateBook(authorId,bookId,book);
+            return Ok();
+                
+        }
     }
 }
