@@ -29,11 +29,11 @@ namespace Library.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IBookRepository, BookMockRepository>();
-            services.AddScoped<IAuthorRepository, AuthorMockRepository>();
+//            services.AddScoped<IBookRepository, BookMockRepository>();
+//            services.AddScoped<IAuthorRepository, AuthorMockRepository>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddDbContext<LibraryDbContext>(option =>
                 option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,10 +50,7 @@ namespace Library.API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
