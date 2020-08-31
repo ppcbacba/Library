@@ -1,5 +1,4 @@
 ﻿using Library.API.Extensions;
-using Library.API.Extentions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.API.Entities

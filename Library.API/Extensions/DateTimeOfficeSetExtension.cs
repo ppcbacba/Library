@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Library.API.Extentions
+namespace Library.API.Extensions
 {
     public static class DateTimeOffsetExtension
     {

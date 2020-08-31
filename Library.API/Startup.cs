@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Library.API.Entities;
 using Library.API.Services;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,7 @@ namespace Library.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
 //            services.AddScoped<IBookRepository, BookMockRepository>();
 //            services.AddScoped<IAuthorRepository, AuthorMockRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
