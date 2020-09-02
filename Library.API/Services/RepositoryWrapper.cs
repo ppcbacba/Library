@@ -10,7 +10,7 @@ namespace Library.API.Services
     {
         private IAuthorRepository _authorRepository;
         private IBookRepository _bookRepository;
-        private LibraryDbContext LibraryDbContext;
+        private readonly LibraryDbContext LibraryDbContext;
 
         public RepositoryWrapper(LibraryDbContext libraryDbContext)
         {

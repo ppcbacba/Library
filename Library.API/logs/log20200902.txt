@@ -1,0 +1,4 @@
+2020-09-02 16:40:09.724 +08:00 [INF] Starting web host
+2020-09-02 16:40:11.418 +08:00 [INF] Hello,serilog!
+2020-09-02 16:43:24.228 +08:00 [INF] Starting web host
+2020-09-02 16:43:25.830 +08:00 [INF] Hello,serilog!

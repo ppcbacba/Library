@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Library.API.Entities;
+using Library.API.Helper;
 using Library.API.Models;
 
 namespace Library.API.Services
@@ -12,5 +14,6 @@ namespace Library.API.Services
         bool IsAuthorExists(Guid authorId);
         void AddAuthor(AuthorDto author);
         void DeleteAuthor(AuthorDto author);*/
+        Task<PagedList<Author>> GetAllAsync(AuthorResourceParameters parameters);
     }
 }

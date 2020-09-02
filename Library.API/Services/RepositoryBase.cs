@@ -9,55 +9,55 @@ namespace Library.API.Services
 {
     public class RepositoryBase<T, TId> : IRepositoryBase<T>, IRepositoryBase2<T,TId> where T : class
     {
-        private readonly DbContext _dbContext;
+        public DbContext DbContext { get; set; }
 
         public RepositoryBase(DbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
        void IRepositoryBase<T>.Create(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
+            DbContext.Set<T>().Add(entity);
         }
 
         void IRepositoryBase<T>.Delete(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
+            DbContext.Set<T>().Remove(entity);
 
         }
 
         Task<IEnumerable<T>> IRepositoryBase<T>.GetAllAsync()
         {
-            return Task.FromResult(_dbContext.Set<T>().AsEnumerable());
+            return Task.FromResult(DbContext.Set<T>().AsEnumerable());
 
         }
 
         Task<IEnumerable<T>> IRepositoryBase<T>.GetByConditionAsync(Expression<Func<T, bool>> expression)
         {
-            return Task.FromResult(_dbContext.Set<T>().Where(expression).AsEnumerable());
+            return Task.FromResult(DbContext.Set<T>().Where(expression).AsEnumerable());
 
         }
 
      async   Task<T> IRepositoryBase2<T, TId>.GetByIdAsync(TId id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return await DbContext.Set<T>().FindAsync(id);
         }
 
      async   Task<bool> IRepositoryBase2<T, TId>.IsExistAsync(TId id)
         {
-            return await _dbContext.Set<T>().FindAsync(id)!=null;
+            return await DbContext.Set<T>().FindAsync(id)!=null;
         }
 
        async Task<bool>  IRepositoryBase<T>.SaveAsync()
         {
-            return await _dbContext.SaveChangesAsync()>0;
+            return await DbContext.SaveChangesAsync()>0;
 
         }
 
         void IRepositoryBase<T>.Update(T entity)
         {
-            _dbContext.Set<T>().Update(entity);
+            DbContext.Set<T>().Update(entity);
         }
     }
 }
